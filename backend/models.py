@@ -21,6 +21,7 @@ class RadiologyReport(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     description = db.Column(db.String(300), nullable=False)
     radiopath = db.Column(db.String(200))
+    date1=db.Column(db.String(100))
 
 class DoctorAdvice(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
