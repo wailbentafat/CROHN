@@ -16,3 +16,10 @@ it can function both as a website and mobile progressive web app. althrough the 
 making new accounts and logging into them fully functions but you can press the bypass button in development mode. 
 ### the interactive data gathering chat
 using a couple of chat agents we can simulate a real conversation and bring out the real data that is then given to a specialized model to proccess it
+
+## backend
+### running
+```bash
+  pip install -r requirements.txt
+  python app.py
+```
