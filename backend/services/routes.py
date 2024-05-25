@@ -14,32 +14,29 @@ def allowed_file(filename):
 @medical_bp.route('/put_files', methods=['POST'])
 @jwt_required()
 def create_radiology_report():
-    user_id = get_jwt_identity()['id']
-    
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-    
-    file = request.files['file']
-    description = request.form.get('description')
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
+        user_id = get_jwt_identity()['id']
+        print(user_id)
 
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
-        
-        new_report = RadiologyReport(user_id=user_id, description=description, radiopath=file_path)
-        db.session.add(new_report)
-        db.session.commit()
-        
-        return jsonify({'message': 'File and description uploaded successfully', 'filename': filename}), 201
-    else:
-        return jsonify({'error': 'File type not allowed'}), 400
-    db.session.add(new_report)
-    db.session.commit()
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file part'}), 400
+
+        file = request.files['file']
+        description = request.form.get('description')
+        if file.filename == '':
+            return jsonify({'error': 'No selected file'}), 400
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+
+            new_report = RadiologyReport(user_id=user_id, description=description, radiopath=file_path)
+            db.session.add(new_report)
+            db.session.commit()
+
+            return jsonify({'message': 'File and description uploaded successfully', 'filename': filename}), 201
+        else:
+            return jsonify({'error': 'File type not allowed'}), 400
     
-    return jsonify({'message': 'File uploaded successfully', 'filename': filename}), 201
 
 @medical_bp.route('/advices', methods=['POST'])
 @jwt_required()
@@ -51,6 +48,18 @@ def add_doctor_advice():
     db.session.add(new_advice)
     db.session.commit()
     return jsonify({'message': 'New doctor advice added'}), 201
+
+@medical_bp.route('/get_all', methods=['POST'])
+@jwt_required()
+def transfer_all():
+      user_id = get_jwt_identity()['id']
+      radio =  RadiologyReport.query.filter_by(user_id=user_id).first()
+      if radio:
+   
+       all_descriptions_and_links = []
+       for  description in radio. description:
+    
+        links = extract_links(radio.description)
 
 @medical_bp.route('/reports', methods=['GET'])
 @jwt_required()
@@ -71,3 +80,5 @@ def get_radiology_reports():
 @medical_bp.route('/report_image/<filename>', methods=['GET'])
 def get_report_image(filename):
     return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+
+

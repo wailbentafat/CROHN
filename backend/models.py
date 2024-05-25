@@ -6,7 +6,7 @@ class User(db.Model):
     second_name = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
     sex = db.Column(db.String(10), unique=True, nullable=False)
-    age = db.Column(db.intager, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
     password = db.Column(db.String(128), nullable=False)
     patient = db.relationship('Patient', backref='user', uselist=False, lazy=True)
     radiology_reports = db.relationship('RadiologyReport', backref='user', lazy=True)
