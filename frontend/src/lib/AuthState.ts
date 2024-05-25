@@ -17,7 +17,7 @@ export const AuthState = writable({
 
 export const signup = async (body: any) => {
 	axios
-		.post('https://b449-105-99-114-244.ngrok-free.app/auth/register', {
+		.post('http://127.0.0.1:5000/auth/register', {
 			...body,
 		})
 		.then((res) => {
@@ -31,7 +31,7 @@ export const signup = async (body: any) => {
 
 export const login = async (body: any) => {
 	axios
-		.post('https://b449-105-99-114-244.ngrok-free.app/auth/login', {
+		.post('http://127.0.0.1:5000/auth/login', {
 			...body,
 		})
 		.then((res) => {
@@ -74,15 +74,24 @@ export const logout = () => {
 
 const login_from_cookie = async () => {
 	let token = getCookie('token');
-	console.log(token);
 	if (!token) return;
-	fetch('https://b449-105-99-114-244.ngrok-free.app/auth/token-info', {
+	fetch('http://127.0.0.1:5000/auth/token-info', {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
 		},
-	}).then((res) => {console.log(res);res.json().then(console.log)});
+	}).then((res) => res.json().then(user => {
+		AuthState.set({
+			loggedin: true,
+			token: token,
+			first_name: user.first_name,
+			last_name: user.second_name,
+			age: user.age,
+			gender: user.sex,
+			email: user.email
+		})
+	}));
 };
 
-// onMount(login_from_cookie)
+login_from_cookie()

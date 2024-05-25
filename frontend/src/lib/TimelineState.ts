@@ -24,7 +24,7 @@ export const TimelineState: Writable<TimelineEvent[]> = writable([
 	
 ]);
 /*
-axios.get('https://b449-105-99-114-244.ngrok-free.app/medical/get_all', {
+axios.get('https://http://127.0.0.1:5000/medical/get_all', {
 	headers: {
 		Authorization:
 			'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNjYzMDQ1MSwianRpIjoiNTY2M2I0MmItNWUzOS00Zjk2LThkOTktOGY0MTRjNDdjZWIyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MSwiZW1haWwiOiJlbWFpbCJ9LCJuYmYiOjE3MTY2MzA0NTEsImNzcmYiOiI0MWI4MTBiOS0zZWY0LTQyOTctYjkzMS0zY2VmMmEwYWFjYmIiLCJleHAiOjE3MTY2MzEzNTF9.cXUrhsClS2XY7YxX6qcw_iRj_4MpTHctBosidGe-Ez4',
@@ -39,7 +39,7 @@ axios.get('https://b449-105-99-114-244.ngrok-free.app/medical/get_all', {
 */
 
 export const upload_file = (file: File) => {
-	axios.post('https://b449-105-99-114-244.ngrok-free.app/medical/put_files', {
+	axios.post('http://127.0.0.1:5000/medical/put_files', {
 		headers: {
 			Authorization:
 				'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNjYzMDQ1MSwianRpIjoiNTY2M2I0MmItNWUzOS00Zjk2LThkOTktOGY0MTRjNDdjZWIyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MSwiZW1haWwiOiJlbWFpbCJ9LCJuYmYiOjE3MTY2MzA0NTEsImNzcmYiOiI0MWI4MTBiOS0zZWY0LTQyOTctYjkzMS0zY2VmMmEwYWFjYmIiLCJleHAiOjE3MTY2MzEzNTF9.cXUrhsClS2XY7YxX6qcw_iRj_4MpTHctBosidGe-Ez4',
